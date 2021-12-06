@@ -46,3 +46,59 @@ function f4() {
 }
 var f6 = f4(); // f5가 f6에 담겼다. 
 console.log(`f6은 ${f6(30)}`); //40
+
+// ***변수 타입
+console.log(typeof null); //object
+//기본형인 null의 타입이 object가 뜨는것은 자바스크립트 초기버전의 버그이다. 
+// null타입 체크 방법 : 값과 타입이 동일할때만 true가 반환되는 일치연산자(===)로 타입체크를 하면 좋음.
+
+// ***new String('') 과 String('')의 차이
+function diffrence() {
+    let nString = new String('배민'),
+        str = String('배민');
+
+    console.log(typeof nString, typeof str);//object, string 반환
+    console.log(nString == str); // true
+    console.log(nString === str); // false
+    console.log(nString.constructor == String); // true
+};
+diffrence();
+
+// ***기본형은 추가 속성을 선언할 수 없다. 
+// 객체
+var constructString = new String('hello');
+constructString.greet = 'welcome';
+console.log(constructString.greet === 'welcome'); //true
+console.log(constructString.greet); //welcome
+
+// 기본형
+var primitiveString = 'hello';
+primitiveString.greet = 'welcome';
+console.log(primitiveString.greet === 'welcome'); //false
+console.log(primitiveString.greet); //undefined
+
+// 양쪽 공백을 없애는 trim  함수
+// String.prototype.trim = function () {
+//     return this.replace(/^\s+|\s+$/g, "");
+// };
+// 이처럼 prototype 에 사용자 정의 함수를 추가해서 활용할 수 있다. 
+console.log('            dddd     '.trim() === 'dddd'); //true
+
+// ***접근방식
+var hi = 'hi',
+    variableName = hi;
+console.log(hi); //hi
+console.log(window.hi); //hi
+console.log(window['hi']); //hi
+console.log(window[variableName]); //hi
+// 굳이 eval() 함수를 사용하지 않아도 됨. 
+
+// ***프로토타입
+//  es6에서는 __proto__를 표준으로 채택했다. 하지만 여전히 코드 내에서는 Object.getPrototypeOf()의 사용을 권장함.
+// __proto__와 Object.getPrototypeOf()은 동일한 값 반환
+const christmas = {
+    month : 'december',
+    food : 'cake'
+}
+console.log(Object.getPrototypeOf(christmas)); //{constructor: ƒ, __defineGetter__: ƒ, __defineSetter__: ƒ, hasOwnProperty: ƒ, __lookupGetter__: ƒ, …}
+console.log(christmas.__proto__); //{constructor: ƒ, __defineGetter__: ƒ, __defineSetter__: ƒ, hasOwnProperty: ƒ, __lookupGetter__: ƒ, …}
