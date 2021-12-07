@@ -12,7 +12,9 @@
       "name": "js",
       "isOrdered": true,
       "folders": {},
-      "files": {}
+      "files": {
+        "question": 0
+      }
     }
   },
   "files": {

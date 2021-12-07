@@ -47,6 +47,7 @@ function f4() {
 var f6 = f4(); // f5가 f6에 담겼다. 
 console.log(`f6은 ${f6(30)}`); //40
 
+
 // ***변수 타입
 console.log(typeof null); //object
 //기본형인 null의 타입이 object가 뜨는것은 자바스크립트 초기버전의 버그이다. 
@@ -63,6 +64,7 @@ function diffrence() {
     console.log(nString.constructor == String); // true
 };
 diffrence();
+
 
 // ***기본형은 추가 속성을 선언할 수 없다. 
 // 객체
@@ -84,6 +86,7 @@ console.log(primitiveString.greet); //undefined
 // 이처럼 prototype 에 사용자 정의 함수를 추가해서 활용할 수 있다. 
 console.log('            dddd     '.trim() === 'dddd'); //true
 
+
 // ***접근방식
 var hi = 'hi',
     variableName = hi;
@@ -92,6 +95,7 @@ console.log(window.hi); //hi
 console.log(window['hi']); //hi
 console.log(window[variableName]); //hi
 // 굳이 eval() 함수를 사용하지 않아도 됨. 
+
 
 // ***프로토타입
 //  es6에서는 __proto__를 표준으로 채택했다. 하지만 여전히 코드 내에서는 Object.getPrototypeOf()의 사용을 권장함.
@@ -102,3 +106,33 @@ const christmas = {
 }
 console.log(Object.getPrototypeOf(christmas)); //{constructor: ƒ, __defineGetter__: ƒ, __defineSetter__: ƒ, hasOwnProperty: ƒ, __lookupGetter__: ƒ, …}
 console.log(christmas.__proto__); //{constructor: ƒ, __defineGetter__: ƒ, __defineSetter__: ƒ, hasOwnProperty: ƒ, __lookupGetter__: ƒ, …}
+
+
+// ***함수에서의 this
+var obj = {
+    outer: function () {
+        console.log(this); //outer
+        var innerFunc = function () {
+            console.log(this); //window 와 innerMethod???? 함수로 호출됨 + innerMethod의 메서드로 호출됨 인가?
+        };
+        innerFunc();
+        var obj2 = {
+            innerMethod: innerFunc
+        }
+        obj2.innerMethod();
+    }
+}
+obj.outer();
+
+// 화살표 함수에서의 this
+var obj = {
+    outer: function () {
+        console.log(this); //outer
+        var innerFunc = () => {
+            console.log(this); //outer
+        }
+        innerFunc();
+    }
+}
+obj.outer();
+
